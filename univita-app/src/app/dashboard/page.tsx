@@ -1,24 +1,15 @@
 import { Inconsolata, Literata } from "next/font/google";
 import Image from "next/image";
+import { url } from "inspector";
+import { title } from "process";
 import Header from "@/components/public/header";
 import Footer from "@/components/public/footer";
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh bg-amber-100">
-      {/*Header*/}
-      <Header></Header>
-      
-      {/*content*/}
-      <main className="bg-blue-400 grid size-full items-center justify-center ">
-          <div>
-            Content
-          </div>
-      </main>
-      {/*Footer*/}
-      <Footer></Footer>
 
-      {/*
+
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -114,7 +105,6 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-      */}
     </div>
   );
 }

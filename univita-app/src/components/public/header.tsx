@@ -1,6 +1,6 @@
 // header de la page principal
 
-import Redes from "./redes";
+import Redes from "../common/socialMedia";
 
 const pago = [
   {
