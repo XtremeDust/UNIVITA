@@ -25,8 +25,7 @@ const StatePanel = (index:number) =>{
                     </div>
 
                     <ul className={`transition-all duration-600 ease-in-out overflow-hidden 
-                        ${isOpen === index ? 'delay-500 max-h-screen opacity-100 ' : '  max-h-0 opacity-0 '}`}>
-                                
+                        ${isOpen === index ? 'delay-500 max-h-screen opacity-100 ' : 'max-h-0 opacity-0 '}`}>                      
                                 {section.subsection?.map((sub)=>(
                                     <li key={sub.id} className="p-2">
                                     <a key={sub.id} href={sub.url} className="ml-5">

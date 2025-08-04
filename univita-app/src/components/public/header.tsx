@@ -1,7 +1,10 @@
 // header de la page principal
 
 import Redes from "../common/socialMedia";
-
+import {sectionH} from "../../data/headerSection";
+import {pago} from "../../data/headerSection";
+import Image from "next/image";
+{/*
 const pago = [
   {
   id:1,
@@ -50,7 +53,7 @@ const redi = [
     img:"#",
   },              
                     
-]
+]*/}
 
 function Header(){
     return(
@@ -98,12 +101,23 @@ function Header(){
               <div className="grid items-center justify-center lg:justify-end lg:mr-14 h-10 lg:h-auto">
                 <ul className="grid grid-flow-col-dense gap-4 text-gray-400 lg:text-sm text-[10px]">
                   
-                  {redi.map((list)=>(
+                  {sectionH.map((list)=>(
                     
-                  <a key={list.id} href={list.url} className="hover:text-black">
+                  <a key={list.id} href={list.url} className="hover:text-black flex">
                     {list.title} 
-                    {(list.id===2 || list.id===3) &&(<img src="#" alt={list.title} />)}
-                  </a>))}
+                    {/*list.id===2|| list.id===3 */}
+                    {( list.img==="#") &&(
+                      <Image
+                            className="dark:invert rotate-180 p-1"
+                            src="vercel.svg"
+                            alt={list.title}
+                            width={14}
+                            height={12}
+                            priority
+                          />                                         
+                  )}
+                  </a>                
+                ))}
 
                 </ul>
               </div>
