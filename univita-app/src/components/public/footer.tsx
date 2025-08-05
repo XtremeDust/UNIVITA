@@ -8,7 +8,7 @@ function Footer(){
 
   return(
     <footer className="bg-[#0d4d98] grid lg:grid-cols-5 text-sm ">
-        <div className="row-start-2 lg:row-start-1 text-center justify-items-center justify-self-center p-6 col-span-5 lg:col-span-1">
+        <div className="row-start-2 lg:row-start-1 text-center place-items-center justify-self-center p-6 col-span-5 lg:col-span-1">
         {/*
             imagen con cloudinary (es un gif de prueba MAS BIEN cuidado mata de ternura!!!)
         https://res.cloudinary.com/dnfvfft3w/image/upload/v1753572417/samples/animals/kitten-playing.gif

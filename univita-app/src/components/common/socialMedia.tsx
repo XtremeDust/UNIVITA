@@ -47,13 +47,15 @@ const redes = [
 
  function Redes(){
     return(
-        <div className="grid grid-flow-col gap-1 p-1 justify-start">
+        <ul className="grid grid-flow-col place-items-center gap-1 p-1">
             {redes.map((icon)=>(
-                <a key={icon.id} href={icon.Url}>
-                    <img src={icon.img} alt={icon.red} className={icon.size}/>
-                </a>
+                <li key={icon.id} className={icon.size}>
+                    <a href={icon.Url}>
+                        <img src={icon.img} alt={icon.red}/>
+                    </a>
+                </li>
             ))}
-        </div>
+        </ul>
     );
  }
 

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import {sectionFs} from "@/data/footerSection";
+import Redes from "@/components/common/socialMedia"
 
 function Accordion(){
 
@@ -12,7 +13,10 @@ const StatePanel = (index:number) =>{
  };
 
     return(
-        <div className="grid items-center lg:hidden w-screen ">            
+        <div className="grid items-center lg:hidden w-screen "> 
+            <div className="grid justify-items-stretch bg-white p-3">
+                <Redes/>         
+            </div>  
             { sectionFs.map((section, index)=>(
                 <div key={index}>
                     <div className="border border-transparent w-full border-b-zinc-950 ">
@@ -24,8 +28,8 @@ const StatePanel = (index:number) =>{
                     </h2>
                     </div>
 
-                    <ul className={`transition-all duration-600 ease-in-out overflow-hidden 
-                        ${isOpen === index ? 'delay-500 max-h-screen opacity-100 ' : 'max-h-0 opacity-0 '}`}>                      
+                    <ul className={`transition-all  ease-in-out overflow-hidden 
+                        ${isOpen === index ? 'delay-400 max-h-screen opacity-100 ' : 'delay-100 max-h-0 opacity-0 '}`}>                      
                                 {section.subsection?.map((sub)=>(
                                     <li key={sub.id} className="p-2">
                                     <a key={sub.id} href={sub.url} className="ml-5">
