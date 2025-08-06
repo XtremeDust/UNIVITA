@@ -4,7 +4,9 @@ import Redes from "../common/socialMedia";
 import {sectionH} from "../../data/headerSection";
 import {pago} from "../../data/headerSection";
 import Image from "next/image";
+import Accordeon from "@/components/ui/accordionH"
 import React, {useState} from "react";
+
 {/*
 const pago = [
   {
@@ -97,7 +99,7 @@ const [isOpenMenu, setOpenMenu] = useState(false);
           </div>
 
           {/*Navbar*/}
-          <div className="nav grid size-full bg-blue-50 p-2 grid-flow-col">
+          <div className="nav grid size-full bg-blue-50 px-2 grid-flow-col">
             <nav className="grid md:grid-rows-1 xl:grid-flow-col ">
 
               {/*LOGO unimar*/}
@@ -132,7 +134,6 @@ const [isOpenMenu, setOpenMenu] = useState(false);
               </div>
               
             </nav>
-
             {/*button mob*/}
                 <button className="md:hidden cursor-pointer justify-start" onClick={()=>setOpenMenu(!isOpenMenu)}>
                   <img src="bars-solid-full.svg" alt="menu" className=" size-7"/>
@@ -141,11 +142,10 @@ const [isOpenMenu, setOpenMenu] = useState(false);
           </div>
                 {/*menu mob */}
                 
-                <div className={`transition-all ease-in-out overflow-hidden text-black bg-amber-200 ${isOpenMenu ? ' max-h-screen opacity-100 ' :' max-h-0 opacity-0  pointer-events-none'}`}>
-                  <li>s</li>
-                  <li>a</li>
-                  <li>l</li>
+                <div className={`px-2 transition-all ease-in-out overflow-hidden md:hidden text-black ${isOpenMenu ? ' max-h-screen opacity-100 ' :' max-h-0 opacity-0  pointer-events-none'}`}>
+                  <Accordeon/>
                 </div>
+
 
       </header>
     );
