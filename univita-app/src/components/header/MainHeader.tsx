@@ -1,11 +1,13 @@
 // header de la page principal
 'use client'
 import Redes from "../common/socialMedia";
-import {sectionH} from "../../data/headerSection";
-import {pago} from "../../data/headerSection";
-import Image from "next/image";
-import Accordeon from "@/components/ui/accordionH"
+import {sectionH} from "../../types/headerSection";
+import {pago} from "../../types/headerSection";
+
+import Accordeon from "@/components/header/accordionMH"
 import React, {useState} from "react";
+import Arrow from "../common/ArrowIcon";
+import MenuDropdown from "../header/menuDropdown";
 
 {/*
 const pago = [
@@ -61,7 +63,11 @@ const redi = [
 
 
 function Header(){
+
 const [isOpenMenu, setOpenMenu] = useState(false);
+
+
+
 
 
     return(
@@ -69,17 +75,17 @@ const [isOpenMenu, setOpenMenu] = useState(false);
       <header className=" grid size-full  items-center text-center justify-center gap-1 bg-blue-50">
           
           {/*Span*/}
-          <div className="nav grid w-dvw bg-blue-200 pb-1 text-blue-800">
+          <div className="nav grid  md:w-screen bg-blue-200 pb-1 text-blue-800">
             <i></i>
             <p>
-             El valor del dólar, según el BCV, para el día de hoy 
+             El valor del dólar, para el día de hoy 
              <span> fecha es </span>
               <strong>precio </strong> Bs
             </p>
           </div>
 
           {/*iconos*/}
-          <div className="grid grid-cols-3 p-2 ml-4 bg-blue-50">
+          <div className="grid grid-cols-3 p-0.5 lg:ml-4 bg-blue-50">
             {/*iconos izquierdos*/}
             <div className="grid col-span-3 md:col-span-2 grid-flow-col gap-1 items-center justify-start xl:justify-end md:mr-30">      
               <Redes/>
@@ -99,7 +105,7 @@ const [isOpenMenu, setOpenMenu] = useState(false);
           </div>
 
           {/*Navbar*/}
-          <div className="nav grid size-full bg-blue-50 px-2 grid-flow-col">
+          <div className="nav grid bg-blue-50 px-2 grid-flow-col">
             <nav className="grid md:grid-rows-1 xl:grid-flow-col ">
 
               {/*LOGO unimar*/}
@@ -107,44 +113,24 @@ const [isOpenMenu, setOpenMenu] = useState(false);
                 <img src="logounimar-25-aniversario.png" alt="logo unimar" className="w-2/3 md:w-md  xl:ml-12"/>              
               </div>
 
-              {/*panel nav*/}
+              {/*menu panel*/}
               <div className="md:grid xl:col-span-2 place-items-center xl:justify-end xl:mr-14 h-10 xl:h-auto hidden">
-                <ul className="grid grid-flow-col-dense gap-4 text-gray-400 xl:text-sm text-[10px]">
-                
-                  
-                  {sectionH.map((list)=>(
-                    
-                  <a key={list.id} href={list.url} className="hover:text-black flex">
-                    {list.title} 
-                    {/*list.id===2|| list.id===3 */}
-                    {( list.img==="#") &&(
-                      <Image
-                            className="dark:invert rotate-180 p-1"
-                            src="vercel.svg"
-                            alt={list.title}
-                            width={14}
-                            height={14}
-                            priority
-                          />                                         
-                  )}
-                  </a>                
-                ))}
-
-                </ul>
+                  <MenuDropdown/>             
               </div>
               
             </nav>
-            {/*button mob*/}
-                <button className="md:hidden cursor-pointer justify-start" onClick={()=>setOpenMenu(!isOpenMenu)}>
-                  <img src="bars-solid-full.svg" alt="menu" className=" size-7"/>
-                </button>
+
+            {/*button menu mobile*/}
+            <button className="md:hidden cursor-pointer justify-start" onClick={()=>setOpenMenu(!isOpenMenu)}>
+              <img src="bars-solid-full.svg" alt="menu" className=" size-8"/>
+            </button>
 
           </div>
-                {/*menu mob */}
-                
-                <div className={`px-2 transition-all ease-in-out overflow-hidden md:hidden text-black ${isOpenMenu ? ' max-h-screen opacity-100 ' :' max-h-0 opacity-0  pointer-events-none'}`}>
-                  <Accordeon/>
-                </div>
+          
+          {/*menu mobile desplegable */}                
+          <div className={` transition-all ease-in-out overflow-hidden md:hidden text-black ${isOpenMenu ? ' max-h-screen opacity-100 ' :' max-h-0 opacity-0  pointer-events-none'}`}>
+            <Accordeon/>
+          </div>
 
 
       </header>

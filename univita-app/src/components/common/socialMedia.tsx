@@ -4,42 +4,42 @@ const redes = [
   {
   id:1,
   red:"email",
-  Url:"",
+  Url:"info@unimar.edu.ve",
   img:"email.png",
   size:"size-6"
   },  
   {
   id:2,
   red:"facebook",
-  Url:"",
+  Url:"https://www.facebook.com/share/1CJrXgVUPe/",
   img:"facebook.png",
   size:"size-6"
   },  
   {
   id:3,
   red:"instagram",
-  Url:"",
+  Url:"https://www.instagram.com/universidademargarita",
   img:"instagram.png",
   size:"size-6"
   },  
   {
   id:4,
   red:"youtube",
-  Url:"",
+  Url:"https://www.youtube.com/channel/UCnRVkJ1OW2oLN_TpvXAnUyw",
   img:"youtube-03.png",
   size:"size-6"
   },  
   {
   id:5,
   red:"X",
-  Url:"",
+  Url:"https://www.twitter.com/somosunimar",
   img:"gorjeo.png",
   size:"size-6"
   },  
   {
   id:6,
   red:"linkedin",
-  Url:"",
+  Url:"https://www.linkedin.com/company/univdemargarita",
   img:"linkedin.png",
   size:"size-6"
   },  

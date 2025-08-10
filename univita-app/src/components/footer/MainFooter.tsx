@@ -1,8 +1,8 @@
 //footer de la pagina principal
 'use client'
 import React from "react";
-import AccordionF from "../ui/accordionF";
-import LicksF from "../common/licksFooter";
+import AccordionF from "./accordionMF";
+import LicksF from "./licksFooter";
 
 function Footer(){
 

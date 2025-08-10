@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import {sectionFs} from "@/data/footerSection";
+import {sectionFs} from "@/types/footerSection";
 import Redes from "@/components/common/socialMedia"
 
 function Accordion(){
@@ -19,7 +19,7 @@ const StatePanel = (index:number) =>{
             </div>  
             { sectionFs.map((section, index)=>(
                 <div key={index}>
-                    <div className="border border-transparent w-full border-b-zinc-950 ">
+                    <div className="border border-transparent border-b-zinc-950 ">
                     <h2 key={section.id} className="font-bold">
                         <button className="p-4 w-full cursor-pointer grid grid-cols-2 justify-items-start" onClick={() => StatePanel(index)}>
                             {section.title} 

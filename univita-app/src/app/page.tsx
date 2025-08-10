@@ -1,7 +1,7 @@
 import { Inconsolata, Literata } from "next/font/google";
 import Image from "next/image";
-import Header from "@/components/public/header";
-import Footer from "@/components/public/footer";
+import Header from "@/components/header/MainHeader";
+import Footer from "@/components/footer/MainFooter";
 
 export default function Home() {
   return (

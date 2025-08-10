@@ -1,6 +1,6 @@
 'use client'
 import Redes from "../common/socialMedia";
-import {sectionFs} from "@/data/footerSection";
+import {sectionFs} from "@/types/footerSection";
 
 function licksFooter(){
     return(
