@@ -5,7 +5,7 @@ export const pago = [
   red:"pagos unimar",
   Url:"",
   icon:"online-payments-vertical.png",
-  size:"w-26"
+  size:"w-28"
   }
 ]
 

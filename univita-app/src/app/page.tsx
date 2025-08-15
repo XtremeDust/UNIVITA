@@ -4,32 +4,28 @@ import Header from "@/components/header/MainHeader";
 import Footer from "@/components/footer/MainFooter";
 import Banner from "@/components/sections/banner";
 import Features from "@/components/sections/featuresSection";
-import Btcomment from "@/components/sections/ButtonComent";
+import Comentsection from "@/components/sections/comentSection";
+
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh bg-amber-100">
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh">
       {/*Header*/}
       <Header></Header>
       
       {/*content*/}
-      <main className="bg-blue-400">          
+      <main className="bg-gray-50 text-black space-y-5">          
             <div className="Hero Banner">
             <Banner/>
             </div>
             <div className="features">
               <Features/>
             </div>
-            <div>
-              {/*promocion*/}
+            <div className=" p-3">
+              {/*apartados del modulo, su funcion es que las personas exploren las funcionalidades*/}
+              <Comentsection/>
             </div>
-            <div>
-              {/*apartados e informacion*/}
-            </div>
-            <div>
-              {/*deja tu comentario*/}
-              <Btcomment/>
-            </div>
+            
       </main>
       {/*Footer*/}
       <Footer></Footer>

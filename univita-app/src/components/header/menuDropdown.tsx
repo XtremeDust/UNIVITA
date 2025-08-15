@@ -14,7 +14,7 @@ import Arrow from "../common/ArrowIcon";
     const StateSubs = (e:number)=>{setOpenSubs(isOpenSubs => isOpenSubs===e ? null : e)};
 
     return(
-        <li className="grid grid-flow-col-dense gap-4 text-gray-400 xl:text-sm text-[10px]">
+        <li className="grid grid-flow-col-dense justify-end w-full gap-4 text-gray-400 xl:text-sm text-[10px]">
             {/*menu*/}
             {sectionH.map((list,i)=>(
                 <div id={`id ${list.id}`} key={list.id} className={`relative text-[12px] ${ isOpenMenuD===i && list.img==="#"? 'text-black':'text-gray-500'}`}>

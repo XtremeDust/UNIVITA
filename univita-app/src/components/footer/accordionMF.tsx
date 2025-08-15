@@ -13,12 +13,12 @@ const StatePanel = (index:number) =>{
  };
 
     return(
-        <div className="grid items-center lg:hidden w-screen "> 
-            <div className="grid justify-items-stretch bg-white p-3">
+        <div className="grid items-center lg:hidden w-full"> 
+            <div className="w-full bg-white p-3">
                 <Redes/>         
             </div>  
             { sectionFs.map((section, index)=>(
-                <div key={index}>
+                <div key={index} className="">
                     <div className="border border-transparent border-b-zinc-950 ">
                     <h2 key={section.id} className="font-bold">
                         <button className="p-4 w-full cursor-pointer grid grid-cols-2 justify-items-start" onClick={() => StatePanel(index)}>

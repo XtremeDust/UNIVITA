@@ -21,7 +21,7 @@ function licksFooter(){
                             <div>
                                 <p>{sub.title}</p>
                                <div className="grid gap-1 justify-start">
-                                    <Redes/>
+                                    <Redes size={''}/>
                                 </div>
                             </div>
                             )}
