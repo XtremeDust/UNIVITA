@@ -5,6 +5,7 @@ import Footer from "@/components/footer/MainFooter";
 import Banner from "@/components/sections/banner";
 import Features from "@/components/sections/featuresSection";
 import Comentsection from "@/components/sections/comentSection";
+import Univita from "@/components/sections/Univita";
 
 
 export default function Home() {
@@ -20,6 +21,9 @@ export default function Home() {
             </div>
             <div className="features">
               <Features/>
+            </div>
+            <div className="Univita">
+              <Univita/>
             </div>
             <div className=" p-3">
               {/*apartados del modulo, su funcion es que las personas exploren las funcionalidades*/}

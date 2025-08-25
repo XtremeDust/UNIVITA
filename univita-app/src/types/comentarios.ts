@@ -12,7 +12,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'estudiante',
         date:'15/08/2025',
-        color:'blue',
+       
         content:{contenido}
     },{
         id: 2,
@@ -20,7 +20,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'profesor',
         date:'15/08/2025',
-         color:'green', 
+        
         content:{contenido}
     },{
         id: 3,
@@ -28,7 +28,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'null',
         date:'15/08/2025',
-         color:'pink',
+        
         content:{contenido}
     },{
         id: 4,
@@ -36,7 +36,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'null',
         date:'15/08/2025',
-         color:'pink',
+        
         content:{contenido}
     },{
         id: 5,
@@ -44,7 +44,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'null',
         date:'15/08/2025',
-         color:'pink',
+        
         content:{contenido}
     },{
         id: 6,
@@ -52,7 +52,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'null',
         date:'15/08/2025',
-         color:'pink',
+        
         content:{contenido}
     }
     ,{
@@ -61,7 +61,7 @@ export const coments = [
         avatar:'/placeholder.svg',
         rol:'null',
         date:'15/08/2025',
-         color:'pink',
+        
         content:{contenido}
     }
 ]

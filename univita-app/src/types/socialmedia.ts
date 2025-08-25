@@ -1,5 +1,5 @@
 export interface rederImg{
-    size:string;
+    size?:string;
 }
 
 export const redes = [

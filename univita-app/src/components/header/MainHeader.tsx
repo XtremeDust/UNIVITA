@@ -27,7 +27,7 @@ const [isOpenMenu, setOpenMenu] = useState(false);
           {/*iconos*/}
           <div className="flex flex-wap p-1 bg-blue-50 w-full justify-between lg:justify-items-stretch">
             {/*iconos izquierdos*/}
-            <div className="flex flex-wap w-full items-center justify-start lg:justify-center">      
+            <div className="flex flex-wap w-full h-6 items-center justify-start lg:justify-center">      
               <Redes size={'size-6'}/>
               {pago.map((icons) =>(
                 <a key={icons.id} href={icons.Url}>

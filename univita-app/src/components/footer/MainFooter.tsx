@@ -7,7 +7,7 @@ import LicksF from "./licksFooter";
 function Footer(){
 
   return(
-    <footer className="bg-[#0d4d98] grid lg:grid-cols-5 text-sm ">
+    <footer className="bg-unimar grid lg:grid-cols-5 text-sm ">
         <div className="row-start-2 lg:row-start-1 text-center place-items-center justify-self-center p-6 ">
         {/*
             imagen con cloudinary (es un gif de prueba MAS BIEN cuidado mata de ternura!!!)
