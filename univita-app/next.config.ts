@@ -1,20 +1,16 @@
  import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = { //
-  /* config options here */
-  reactStrictMode:true,
-  images:{
-    remotePatterns:[
+const nextConfig: NextConfig = {
+//reactStrictMode:true,
+  images: {
+    remotePatterns: [
       {
-        protocol:'https',
-        hostname:'res.cloudinary.com',
-        port:'',
-        pathname:'dnfvfft3w'
+        protocol:"https",
+        hostname:"res.cloudinary.com",
+        pathname:"/**",
       },
     ],
   },
 };
-
-//module.exports = nextConfig;
 
 export default nextConfig;

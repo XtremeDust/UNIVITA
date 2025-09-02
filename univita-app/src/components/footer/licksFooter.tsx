@@ -1,5 +1,5 @@
 'use client'
-import Redes from "../common/socialMedia";
+import Redes from "@/components/common/socialMedia";
 import {sectionFs} from "@/types/footerSection";
 
 function licksFooter(){
@@ -21,7 +21,7 @@ function licksFooter(){
                             <div>
                                 <p>{sub.title}</p>
                                <div className="grid gap-1 justify-start">
-                                    <Redes size={''}/>
+                                    <Redes />
                                 </div>
                             </div>
                             )}

@@ -1,34 +1,44 @@
 // header de la page principal
 'use client'
-import Redes from "../common/socialMedia";
-import {pago} from "../../types/headerSection";
+import Redes from "@/components/common/socialMedia";
+import {pago} from "@/types/headerSection";
 import Accordeon from "@/components/header/accordionMH"
 import React, {useState} from "react";
-import MenuDropdown from "../header/menuDropdown";
+import Image from "next/image";
+
+import MenuDropdown from "@/components/header/menuDropdown";
 
 function Header(){
 
 const [isOpenMenu, setOpenMenu] = useState(false);
+let date: Date=new Date();
 
     return(
     
       <header className=" flex flex-col w-full  items-center text-center justify-center gap-1 bg-blue-50">
           
           {/*Span*/}
-          <div className="nav grid w-full bg-blue-200 pb-1 text-blue-800">
-            <i></i>
-            <p>
-             El valor del dólar, para el día de hoy 
+          <div className="nav grid w-full overflow-hidden bg-blue-200 pb-1 text-blue-800">
+            <section className="mov left flex items-center gap-2">
+            <Image
+                  src={'https://res.cloudinary.com/dnfvfft3w/image/upload/v1756314739/informacion_teugd3.png'}
+                      width= {18}
+                      height= {18}
+                  alt={'info'}
+            />
+            <p className=" flex flex-none gap-1">
+             El valor del dólar, para el día de hoy {`${date.getUTCDate()}/${date.getUTCMonth()+1}/${date.getUTCFullYear()}`}
              <span> fecha es </span>
-              <strong>precio </strong> Bs
+              <strong> precio </strong> Bs
             </p>
+            </section>
           </div>
 
           {/*iconos*/}
           <div className="flex flex-wap p-1 bg-blue-50 w-full justify-between lg:justify-items-stretch">
             {/*iconos izquierdos*/}
-            <div className="flex flex-wap w-full h-6 items-center justify-start lg:justify-center">      
-              <Redes size={'size-6'}/>
+            <div className="flex flex-wap w-full h-8 items-center justify-start lg:justify-center">      
+              <Redes/>
               {pago.map((icons) =>(
                 <a key={icons.id} href={icons.Url}>
                   <img src={icons.icon} alt={icons.red} className={icons.size}/>

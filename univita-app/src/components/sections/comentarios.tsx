@@ -1,6 +1,5 @@
 'use client'
-import {indicadorProps} from "../../types/comentarios"
-import {coments} from "../../types/comentarios"
+import {indicadorProps, coments} from "@/types/comentarios"
 
     export default function Comentars({mayor, menor}:indicadorProps){
         return(
@@ -8,7 +7,7 @@ import {coments} from "../../types/comentarios"
                 {coments.map((coment, index)=>( 
                     <div key={index} className={` odd:bg-unimar odd:text-white odd:border-white bg-gray-50  border-2 border-blue-400 ring-2 ring-unimar odd:ring-gray-400 rounded-lg ${coment.id>mayor && coment.id<menor ? 'visible' : 'hidden'} opacity-100 group-hover:opacity-50 hover:opacity-100 hover:scale-105 transition-all duration-300 `}>
                     {(coment.id>mayor && coment.id<menor) &&(
-                            <div key={coment.id} className={` h-full w-sm md:w-md p-2 space-y-3 place-content-center place-items-center `}>
+                        <div key={coment.id} className={` h-full w-sm md:w-md p-2 space-y-3 place-content-center place-items-center `}>
                             <div className="flex flex-row space-x-3 items-center w-full px-2 ">
                                 <div className={` bg-gray-400 size-10 rounded-full`}>
                                     <img src={coment.avatar} alt="logo" />
