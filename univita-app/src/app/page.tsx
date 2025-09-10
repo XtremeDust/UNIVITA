@@ -10,7 +10,10 @@ import Univita from "@/components/sections/Univita";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh">
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-dvh"
+    
+    >
+
       {/*Header*/}
       <Header></Header>
       
@@ -25,7 +28,7 @@ export default function Home() {
             <div className="Univita">
               <Univita/>
             </div>
-            <div className=" p-3">
+            <div className=" p-3 ">
               {/*apartados del modulo, su funcion es que las personas exploren las funcionalidades*/}
               <Comentsection/>
             </div>

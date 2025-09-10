@@ -2,8 +2,8 @@ import React from "react";
 
 interface IntProps extends React.InputHTMLAttributes<HTMLInputElement>{}
 
-export function Input ({...props}:IntProps){
+export function Input ({className,...props}:IntProps){
     return(
-        <input className="" {...props}/>        
+        <input className={`text-[20px]  bg-white rounded-md ${className}`} {...props}/>        
     )
 }
