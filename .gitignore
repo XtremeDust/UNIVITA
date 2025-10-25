@@ -1,5 +1,46 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+
+# dependencies
+/univita-app/node_modules
+/univita-app/.pnp
+/univita-app/.pnp.*
+/univita-app/.yarn/*
+!/univita-app/.yarn/patches
+!/univita-app/.yarn/plugins
+!/univita-app/.yarn/releases
+!/univita-app/.yarn/versions
+
+# testing
+/univita-app/coverage
+
+# next.js
+/univita-app/.next/
+/univita-app/out/
+
+# production
+/univita-app/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+/univita-app/npm-debug.log*
+/univita-app/yarn-debug.log*
+/univita-app/yarn-error.log*
+/univita-app/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+/univita-app/.env*
+
+# vercel
+/univita-app/.vercel
+
+# typescript
+/univita-app/*.tsbuildinfo
+/univita-app/next-env.d.ts
+
 # dependencies
 /node_modules
 /.pnp
