@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect  } from 'react'
 import Image from 'next/image'
 import { 
   Input,
@@ -21,7 +21,8 @@ import {
     {id:3, titulo:"Estado"},
     {id:5, titulo:"Acciones"},
   ]
-
+    
+  /*
   const coment = [
       {
           id: 1,
@@ -58,7 +59,7 @@ import {
           contenido: "¡Me encanta el nuevo diseño! La opción de cerrar sesión es muy visible.",
           visibilidad: 'Publico',
       },
-  ];
+  ];*/
 
   const buttons = [
       {id:1, button:"Desacargar", img:"/bandeja-de-descarga.png"},
@@ -94,6 +95,36 @@ import {
     ...(isEstate !== 'Todos' ? [{ id: 0, label: 'Todos' }] : []),
     ...filteredEstate,
     ];
+
+
+    const [posts, setPosts] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/posts");
+        const json = await res.json();
+        setPosts(json);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  if (loading) return <p>Cargando posts...</p>;
+
+  // adaptar a tu "coment" array que espera campos: email, contenido, fecha, visibilidad
+  const coment = posts.map(p => ({
+    id: p.id,
+    email: p.author?.email ?? "Anonimo",
+    contenido: p.body,
+    fecha: new Date(p.created_at).toLocaleString(),
+    visibilidad: p.status === 'publico' ? 'Publico' : 'Privado'
+  }));
+
 
   return (
     <div>
@@ -162,7 +193,7 @@ import {
                                               <TableCell className="overflow-hidden"><p className="w-sm">{data.contenido}</p></TableCell>
                                               <TableCell>{data.fecha}</TableCell>
                                               <TableCell className="place-items-center">
-                                                  <p  className={`items-center rounded-full p-2 w-40 font-semibold ${data.visibilidad==='Anonimo'? ' bg-gray-400/50 text-gray-800' : 'bg-blue-400/50 text-blue-800'}`}>
+                                                  <p  className={`items-center rounded-full p-2 w-40 font-semibold ${data.visibilidad==='Privado'? ' bg-gray-400/50 text-gray-800' : 'bg-blue-400/50 text-blue-800'}`}>
                                                       {data.visibilidad}
                                                   </p>
                                               </TableCell>

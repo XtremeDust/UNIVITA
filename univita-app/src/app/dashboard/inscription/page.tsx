@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { 
   Input,
@@ -11,11 +11,53 @@ import {
   InputGroup
  } from '@/types/ui_components'
 
+//tabla inscripciones
+interface ApiTournamentEntry {
+  id: number;
+  nombre: string;
+  disciplina: string;
+  categoria: string;
+  integrantes_total: number;
+  estado: 'Aceptado' | 'Rechazado' | 'Pendiente';
+}
+
+//tabla usuarios por equipo api/teams
+interface ApiUser {
+  name: string | null;
+  email: string | null;
+  cedula: string | null;
+  telefono: string | null;
+}
+
+// Para la tabla de equipos (api/teams)
+interface ApiTeam {
+  id: number;
+  nombre: string;
+  logo: string;
+  color: string;
+  captain: {
+    id: number;
+    name: string;
+  };
+  integrantes_total: number;
+  integrantes_data: ApiUser[];
+}
+
+interface ApiSub{
+    id_suscripcion:number;
+    suscriptor:ApiUser;
+    fecha_suscripcion:string;
+    hace_tiempo:string;
+    
+}
+
+
+
 const titlequipos = [
-    {id:1, titulo:"Nombre"},
+    {id:1, titulo:"Equipo"},
     {id:2, titulo:"Deporte"},
     {id:3, titulo:"Categoria"},
-    {id:4, titulo:"Telefono"},
+    {id:4, titulo:"Cantidad"},
     {id:5, titulo:"Estados"},
     {id:6, titulo:"Acciones"},
 ]
@@ -28,75 +70,12 @@ const titleintegrantes = [
     {id:5, titulo:"Acciones"},
 ]
 
-const tablaequipos = [
-  {
-    "id": 1,
-    "nombre": "Las Innombrables",
-    "deporte": "Fútbol Sala",
-    "categoria": "Masculina",
-    "integrantes_total": 3,
-    "fecha_inscripcion": "2025-10-10",
-    "estatus": "Pendiente",
-    "logo_url": "https://url.a.logo/halcones.png",
-    "uniforme_color": "Azul y Dorado",
-    "delegado": {
-      "nombre": "Carlos Mármol",
-      "email": "c.marmol@unimar.edu.ve",
-      "telefono": "+584121234567",
-      "madrina": "María Alegría"
-    },
-    "integrantes_data": [
-      {"dorsal": 12, "cedula": "V-30539519", "email": "w.alas@unimar.edu.ve", "telefono": "+584248090931"},
-      {"dorsal": 18, "cedula": "V-27765432", "email": "m.gomez@unimar.edu.ve", "telefono": "+58424..."},
-      {"dorsal": 17, "cedula": "V-31246789", "email": "j.silva@unimar.edu.ve", "telefono": "+58424..."},
-    ]
-  },
-  {
-    "id": 2,
-    "nombre": "Los que la meten?",
-    "deporte": "Voleibol",
-    "categoria": "Mixta",
-    "integrantes_total": 4,
-    "fecha_inscripcion": "2025-10-15",
-    "estatus": "Rechazado",
-    "logo_url": "https://url.a.logo/panteras.png",
-    "uniforme_color": "Negro y Rojo",
-    "delegado": {
-      "nombre": "Elena Gómez",
-      "email": "e.gomez@unimar.edu.ve",
-      "telefono": "+584149876543",
-      "madrina": "Andrea Flores"
-    },
-    "integrantes_data": [
-        {"dorsal": 16, "cedula": "V-31565987", "email": "s.marcano@unimar.edu.ve", "telefono": "+58412..."},
-        {"dorsal": 1, "cedula": "V-31485963", "email": "c.marcano@unimar.edu.ve", "telefono": "+58412..."},
-        {"dorsal": 8, "cedula": "V-30549874", "email": "a.perez@unimar.edu.ve", "telefono": "+58424..."},
-        {"dorsal": 29, "cedula": "V-32587944", "email": "v.gameto@unimar.edu.ve", "telefono": "+58424..."},
-    ]
-  },
-  {
-    "id": 3,
-    "nombre": "Los Bombasticos",
-    "deporte": "Tenis de Mesa",
-    "categoria": "Masculino",
-    "integrantes_total": 2,
-    "fecha_inscripcion": "2025-10-15",
-    "estatus": "Aceptado",
-    "logo_url": "https://url.a.logo/panteras.png",
-    "uniforme_color": "Negro y Rojo",
-    "delegado": {
-      "nombre": "Elera Gómez",
-      "email": "e.gomez@unimar.edu.ve",
-      "telefono": "+584149876543",
-      "madrina": "Juana Flores"
-    },
-    "integrantes_data": [
-      {"dorsal": 12, "cedula": "V-25945779", "email": "a.taktak@unimar.edu.ve", "telefono": "+58424..."},
-      {"dorsal": 8, "cedula": "V-30145785", "email": "d.alarcon@unimar.edu.ve", "telefono": "+58424..."},
-    ]
-  }
-  
-];
+const titleSubscrit=[
+    {id:1, titulo:"Suscriptor"},
+    {id:2, titulo:"Desde"},
+    {id:3, titulo:"Hace"},
+    {id:4, titulo:"Acciones"},
+]
 
 const buttons = [
     {id:1, button:"Desacargar", img:"/bandeja-de-descarga.png"},
@@ -156,6 +135,71 @@ export default function page() {
             ...filteredEst,
         ];
 
+
+        const [entries, setEntries] = useState<ApiTournamentEntry[]>([]);
+        const [teams, setTeams] = useState<ApiTeam[]>([]);
+        const [sub, setSub] = useState<ApiSub[]>([]);
+
+        const [loading, setLoading] = useState(true);
+        const [error, setError] = useState<string|null>(null);
+
+        useEffect(() => {
+            async function fetchAllData() {
+                try {
+                    setLoading(true);
+                    setError(null);
+
+                    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+                    // Ejecutamos ambas peticiones en paralelo
+                    const [entriesRes, teamsRes, subRes] = await Promise.all([
+                        fetch(`${API_URL}/inscripciones`),
+                        fetch(`${API_URL}/teams`),
+                        fetch(`${API_URL}/subscription`),
+                    ]);
+
+                    // Comprobamos si ambas respuestas son exitosas
+                    if (!entriesRes.ok) throw new Error(`Error en inscripciones: ${entriesRes.statusText}`);
+                    if (!teamsRes.ok) throw new Error(`Error en equipos: ${teamsRes.statusText}`);
+                    if (!subRes.ok) throw new Error(`Error en suscripciones: ${subRes.statusText}`);
+
+                    const entriesData = await entriesRes.json();
+                    const teamsData = await teamsRes.json();
+                    const subsData = await subRes.json();
+
+                    // 3. Guardamos los datos
+                    // Nota: Laravel API Resources envuelven la colección en una clave 'data'
+                    setEntries(entriesData.data); 
+                    setTeams(teamsData.data);
+                    setSub(subsData.data);
+
+                } catch (e: any) {
+                    console.error("Error al cargar datos:", e);
+                    setError(e.message || "Error desconocido");
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+        fetchAllData();
+        }, []); 
+
+        
+        if (loading) return <p>Cargando datos...</p>;
+        if (error) return <p>Error al cargar: {error}</p>;
+
+        
+        const tablaequipos = teams.map(team => ({
+            id: team.id,
+            nombre: team.nombre,
+            integrantes_data: team.integrantes_data.map((p, idx) => ({
+                dorsal: idx + 1,
+                name: p.name, 
+                email: p.email,
+                cedula: p.cedula,
+                telefono: p.telefono,
+            })),
+        }));
 
   return (
     <div className="Case2 overflow-y-auto text-black">
@@ -255,15 +299,17 @@ export default function page() {
                         </TableHead>
 
                         <TableBody className="bg-white divide-y divide-gray-200">
-                            {tablaequipos.map((data)=>(
-                                <TableRow key={data.id} className="hover:bg-gray-100 text-center">
-                                    <TableCell className="font-bold">{data.nombre}</TableCell>
-                                    <TableCell>{data.deporte}</TableCell>
-                                    <TableCell>{data.categoria}</TableCell>
-                                    <TableCell>{data.integrantes_total}</TableCell>
+                            {entries.map((entry)=>(
+                                <TableRow key={entry.id} className="hover:bg-gray-100 text-center">
+                                    <TableCell className="font-bold">{entry.nombre}</TableCell>
+                                    <TableCell>{entry.disciplina}</TableCell>
+                                    <TableCell>{entry.categoria}</TableCell>
+                                    <TableCell>{entry.integrantes_total}</TableCell>
                                     <TableCell  className="place-items-center">
-                                        <p  className={`items-center rounded-full p-2 w-40 font-semibold text-gray-950 ${data.estatus==='Aceptado'? ' bg-green-400/50 text-green-800' : (data.estatus==='Rechazado'? 'bg-red-400/50 text-red-800': 'bg-yellow-400/50 text-yellow-800')}`}>
-                                            {data.estatus}
+                                        <p  className={`items-center rounded-full p-2 w-40 font-semibold text-gray-950
+                                             ${entry.estado==='Aceptado'? ' bg-green-400/50 text-green-800' :
+                                            (entry.estado==='Rechazado'? 'bg-red-400/50 text-red-800': 'bg-yellow-400/50 text-yellow-800')}`}>
+                                            {entry.estado}
                                           </p>
                                     </TableCell>
                                     <TableCell className="space-x-2 flex justify-evenly text-white">
@@ -330,8 +376,8 @@ export default function page() {
                         <TableBody className="bg-white divide-y divide-gray-200">
                             {tablaequipos.map((data)=>(
                                 <React.Fragment key={data.id}>
-                                    {data.integrantes_data.map((person)=>(
-                                        <TableRow key={person.dorsal} className="hover:bg-gray-100 text-center">
+                                    {data.integrantes_data?.map((person:any)=>(
+                                        <TableRow key={person.id || person.email} className="hover:bg-gray-100 text-center">
                                                 <>
                                                     <TableCell className="font-bold">{person.email}</TableCell>
                                                     <TableCell>{person.cedula}</TableCell>
@@ -360,6 +406,77 @@ export default function page() {
                 </div>
 
             </section>
+
+            <section className="grid grid-cols-1 space-y-3 lg:space-y-0 lg:gap-6 mb-4">
+
+                <div className="bg-white p-6 rounded-lg shadow col-span-2">
+                    <h3 className="text-2xl font-bold mb-6">Usuarios Suscritos</h3>
+
+                    <div className="Filtro flex items-center mb-6 gap-3 shadow p-3 bg-gray-800/8 rounded-2xl">
+                        
+                            <div className="relative w-full flex ">
+                                <label htmlFor='buscar' className="h-full place-content-center absolute left-0 px-2 pl-3.5 cursor-pointer rounded-2xl">
+                                    <Image
+                                        className="size-8"
+                                        src={'/lupa.png'}
+                                        alt="buscar"
+                                        width={60}
+                                        height={60}
+                                    />
+                                </label>
+                                <Input type="text" id="buscar" className="bg-gray-50 focus:ring-[1px]  focus:ring-unimar focus:outline-none ring ring-gray-400 shadow-md rounded-2xl w-full pl-18 pr-3 py-3" placeholder="Buscar" required/>
+                                
+                                    <Button className="h-full items-center px-2 pr-4 absolute right-0 rounded-2xl cursor-pointer ">
+                                        <Image
+                                            className="size-4"
+                                            src={'/cerca.png'}
+                                            alt="buscar"
+                                            width={60}
+                                            height={60}
+                                        />
+                                    </Button>
+                            </div>
+                    </div>
+                        
+
+                    <Table className="w-full">
+                        <TableHead className="text-gray-100  bg-unimar">
+                            {titleSubscrit.map((titulos)=>(
+                                <TableHeaderCell key={titulos.id} className="first:rounded-l-lg last:rounded-r-lg p-4 justify-center text-center font-semibold ">
+                                    {titulos.titulo}
+                                </TableHeaderCell>
+                            ))}
+                        </TableHead>
+
+                        <TableBody className="bg-white divide-y divide-gray-200">
+                            {sub.map((sub)=>(
+                                
+                                <TableRow  key={sub.id_suscripcion} className="hover:bg-gray-100 text-center">
+                                
+                                    <TableCell className="font-bold">{sub.suscriptor.email}</TableCell>
+                                    <TableCell>{sub.fecha_suscripcion}</TableCell>
+                                    <TableCell>{sub.hace_tiempo}</TableCell>
+                                    <TableCell className="space-x-2 flex justify-evenly text-white">
+                                        {buttons.map((btn)=>(
+                                            <Button key={btn.id} className={`btn rounded-lg cursor-pointer size-14 ${btn.id ===1? 'hover:bg-unimar/10' : (btn.id===2? 'hover:bg-gray-300/50': 'hover:bg-rose-300/50' )}`}>
+                                                <Image
+                                                    src={btn.img}
+                                                    alt={btn.button}
+                                                    width={500}
+                                                    height={500}
+                                                />
+                                            </Button>
+                                        ))}
+                                    </TableCell>
+                            
+                                </TableRow>
+                                
+                            ))}
+                        </TableBody>
+                    </Table>                                 
+                </div>
+
+            </section>            
 
 
     </div>

@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',     
+        'cedula',   
+        'telefono', 
     ];
 
     /**
@@ -45,4 +48,42 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_user');
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'created_by_user');
+    }
+
+    public function captainOff(){
+        return $this->hasMany(Team::class, 'captain_id');
+    }
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function eventSubscription()
+    {
+        return $this->hasOne(EventSubscription::class);
+    }
+
+    public function createdSports()
+    {
+        return $this->hasMany(Sport::class, 'created_by_user');
+    }
+
+    public function createdRegulations()
+    {
+        return $this->hasMany(Regulation::class, 'created_by_user');
+    }
+
+
+
+
 }

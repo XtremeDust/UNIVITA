@@ -126,7 +126,7 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
         
     }, [OpenDep, OpenCat, setMDep, setMCat]);    
   return (
-        <ContainModal className={`grid-flow-row-dense md:flex md:flex-col text-black ${ isSept===1 ? 'size-[95%]  md:size-[90%] lg:h-[90%] xl:w-[60%]':(isSept===2 ? 'w-[95%] h-[95%] md:w-[85%] md:h-[90%]  xl:h-[95%]':'size-[95%] md:h-[95%]  xl:w-[55%]') }  space-y-3 overflow-y-auto bg-gray-200`}>
+        <ContainModal className={`grid-flow-row-dense md:flex md:flex-col text-black ${ isSept===1 ? 'w-[95%] h-[82%] md:w-[80%] md:h-[70%] lg:w-[75%] lg:h-[70%] xl:w-[60%] xl:h-[80%] 2xl:w-[50%] 2xl:h-[70%]':(isSept===2 ? 'w-[95%] h-[89%] md:w-[85%] md:h-[90%] lg:w-[75%] lg:h-[85%] xl:w-[55%] xl:h-[85%] 2xl:w-[50%] 2xl:h-[88%]':'size-[95%] md:h-[95%]  xl:w-[55%]') }  space-y-3 overflow-y-auto bg-gray-200`}>
             <HeaderModal className="flex-none" onClose={handleCloseModal}>
                 <div className="text-start">
                     <h2 className="ml-5 title">Formulario de Inscripción</h2>
@@ -161,11 +161,11 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
                         
                         {isSept ===1 &&(
                             <>
-                                <section className="flex flex-col space-y-5 p-2 shadow rounded-xl bg-gray-100">
-                                    <div className="section-title mt-3 flex flex-row gap-2 ml-5 place-items-center">
-                                        <div className="relative size-[52px] bg-unimar rounded-2xl">
+                                <section className="flex flex-col p-2 shadow rounded-xl bg-gray-100">
+                                    <div className="section-title mt-3 flex flex-row gap-2 ml-3 place-items-center">
+                                        <div className="relative size-[52px] bg-unimar rounded-full">
                                             <Image
-                                                className=" absolute inset-0 object-contain scale-135"
+                                                className=" absolute inset-0 object-contain scale-100"
                                                 src={'/normas.png'}
                                                 alt="lol"
                                                 fill
@@ -179,14 +179,8 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
                                     
                                         <InputGroup For="deporte" label="Deporte" labelClass="text-gray-700">
                                             <div className="relative"  ref={menuOut} onClick={()=>(setMDep(!OpenDep))}>
-                                                    <Image
-                                                        className="absolute top-1/2 -translate-y-1/2 ml-1.5 size-[2.5rem] bg-unimar rounded-full"
-                                                        src={'https://res.cloudinary.com/dnfvfft3w/image/upload/v1759870088/Group_365_no_blue_wkn7xq.png'}
-                                                        alt="deportes"
-                                                        width={100}
-                                                        height={100}
-                                                    />
-                                                    <Input type='text' id="deporte" className="cursor-pointer input w-full pl-13 pr-3 py-3 placeholder:text-black" required readOnly  value={isDeport === null? "Seleccione un deporte"  : `${isDeport}`}/>
+                                              
+                                                    <Input type='text' id="deporte" className="cursor-pointer input w-full pl-6 pr-3 py-3 placeholder:text-black" required readOnly  value={isDeport === null? "Seleccione un deporte"  : `${isDeport}`}/>
                                                         <Button type="button" className=" cursor-pointer absolute right-1 md:right-1 lg:right-4 top-1/2 flex justify-center -translate-y-1/2 -translate-x-1/2">
                                                             <Image
                                                             className={`size-[1rem] transition-transform duration-300 ease-in-out ${OpenDep? 'rotate-180':' rotate-360'}`}
@@ -218,14 +212,7 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
 
                                             <InputGroup For="Categoria" label="Categoria" labelClass="text-gray-700">
                                                 <div className="relative" ref={menuOutC} onClick={()=>setMCat(!OpenCat)}>
-                                                    <Image
-                                                        className="absolute top-1/2 -translate-y-1/2 ml-1 size-[2.5rem] scale-95 bg-unimar rounded-full  "
-                                                        src={'/categorias.png'}
-                                                        alt="categoria"
-                                                        width={100}
-                                                        height={100}
-                                                    />
-                                                    <Input type='text' id="Categoria" className="cursor-pointer input w-full pl-13 pr-3 py-3 disabled:text-gray-500 text-balck"  placeholder="Seleccione una Categoria" readOnly  value={isCategory === null? "Seleccione una Categoria"  : `${isCategory}`} required  />
+                                                    <Input type='text' id="Categoria" className="cursor-pointer input w-full pl-6 pr-3 py-3 disabled:text-gray-500 text-balck"  placeholder="Seleccione una Categoria" readOnly  value={isCategory === null? "Seleccione una Categoria"  : `${isCategory}`} required  />
                                                         <Button type="button" className=" cursor-pointer absolute top-1/2 right-1 md:right-1 lg:right-4 flex justify-center -translate-y-1/2 -translate-x-1/2 ">
                                                             <Image
                                                             className={`size-[1rem] transition-transform duration-300 ease-in-out ${OpenCat && isDeport!=='Seleccione un deporte' ? 'rotate-180':' rotate-360'}`}
@@ -256,18 +243,11 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
 
                                         <InputGroup For="Torneo" label="Nombre del Torneo"  labelClass="text-gray-700" className="md:col-span-2">
                                             <div className="relative">
-                                                <Image
-                                                    className="absolute top-1/2 -translate-y-1/2 ml-2 size-[2.5rem] bg-unimar rounded-full "
-                                                    src={'https://res.cloudinary.com/dnfvfft3w/image/upload/v1759870087/Gemini_Generated_Image_eew6jreew6jreew6-removebg-preview_dqebiq.png'}
-                                                    alt="trofeo"
-                                                    width={100}
-                                                    height={100}
-                                                />
-                                                <Input type="text" id="Torneo" className="input w-full pl-15 pr-3 py-3 placeholder:text-black" placeholder="Copa Unimar Primavera 2025" disabled/>
+                                                <Input type="text" id="Torneo" className="input w-full pl-6 pr-3 py-3 placeholder:text-black" placeholder="Copa Unimar Primavera 2025" disabled/>
                                             </div>                                                    
                                         </InputGroup>
 
-                                        <div className=" border-l-4 border-unimar col-span-2 p-4 bg-gray-300 rounded-xl">
+                                        <div className=" border-l-4 border-unimar col-span-2 p-4 bg-gray-300 rounded-xl mb-3">
                                             <span>
                                                 La fecha de las inscripciones para este torneo son hasta el xxx  
                                             </span>
@@ -282,9 +262,9 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
                         
                         {isSept ===2 &&(
                             <>
-                                <section className="flex flex-col py-4 px-3 shadow rounded-xl bg-gray-100">
+                                <section className="flex flex-col py-4 px-3 shadow rounded-xl bg-gray-100/75">
 
-                                    <div className="section-title  flex flex-col space-y-4">
+                                    <div className="section-title  flex flex-col space-y-3">
                                         <div className="flex place-items-center mt-3 gap-2 ml-2">
                                             <div className="relative size-[52px] bg-unimar rounded-2xl">
                                                 <Image
@@ -300,10 +280,9 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
                                         </div>
 
                                         
-                                                <div className=" lg:grid lg:grid-cols-2 py-2 px-4 gap-3 place-content-center text-start space-y-6 lg:space-y-3">
-                                                        <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="relative size-[48px] bg-unimar rounded-full">
+                                                <div className="py-2 px-4 gap-3 place-content-center text-start space-y-3.5 lg:space-y-1 mb-3 flex flex-col">
+                                                        <div className="bg-white p-4 rounded-2xl shadow-md flex gap-3">
+                                                            <div className=" relative size-[48px] bg-unimar rounded-full">
                                                                 <Image
                                                                     className=" absolute inset-0 object-contain scale-55"
                                                                     src={'/calend.png'}
@@ -311,107 +290,80 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
                                                                     fill
                                                                 />
                                                             </div>
-                                                            <div className="text-start ml-3">
-                                                                <h3 className="text-[1.1rem] font-bold ">Fechas</h3>
+                                                            <div className=" items-center">
+                                                                <h3 className="text-[1.1rem] font-bold ">Fechas Clave</h3>
+                                                                <div className="font-medium text-gray-700">
+                                                                    <p>Inscripciones: 15 de Agosto - 25 de Agosto</p>
+                                                                    <p>Inicio del Torneo: 1 de Septiembre</p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                            <p className="text-gray-700 m-1">Inscripciones del 15 de Agosto hasta el 25 de Agosto</p>
-                                                            <p className="text-gray-700 m-1">Inicio del 1 de Septiembre</p>
-                                                        </div>
+                                                        <div className="grid md:grid-cols-2 gap-3">
+                                                            <div className="bg-white p-4 rounded-2xl shadow-md">
+                                                                <div className="flex items-center gap-3">
+                                                                    <div className="relative size-[48px] bg-unimar rounded-full">
+                                                                        <Image
+                                                                            className=" absolute inset-0 object-contain"
+                                                                            src={'https://res.cloudinary.com/dnfvfft3w/image/upload/v1759870088/Group_365_no_blue_wkn7xq.png'}
+                                                                            alt="lol"
+                                                                            fill
+                                                                        />
+                                                                    </div>
+                                                                    <div className="text-start">
+                                                                        <h3 className="text-[1.1rem] font-bold text-black">Deporte</h3>
+                                                                        <p className="font-medium text-gray-700">Futbol Sala</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>   
 
-                                                        <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="relative size-[48px] bg-unimar rounded-full">
-                                                                <Image
-                                                                    className=" absolute inset-0 object-contain"
-                                                                    src={'https://res.cloudinary.com/dnfvfft3w/image/upload/v1759870088/Group_365_no_blue_wkn7xq.png'}
-                                                                    alt="lol"
-                                                                    fill
-                                                                />
-                                                            </div>
-                                                            <div className="text-start ml-3">
-                                                                <h3 className="text-[1.1rem] font-bold">Deporte Seleccionado</h3>
-                                                            </div>
+                                                            <div className="bg-white p-4 rounded-2xl shadow-md">
+                                                                <div className="flex items-center  text-gray-700  gap-3">
+                                                                    <div className="relative size-[48px] bg-unimar rounded-full">
+                                                                        <Image
+                                                                            className=" absolute inset-0 object-contain scale-70"
+                                                                            src={'/categorias.png'}
+                                                                            alt="lol"
+                                                                            fill
+                                                                        />
+                                                                    </div>
+                                                                    <div className="text-start">
+                                                                        <h3 className="text-[1.1rem] font-bold text-black ">Categoria</h3>
+                                                                        <p className=" font-medium text-gray-700">Categoria --</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                         
                                                         </div>
-                                                            <p className="text-gray-700 ml-1">Futbol Sala</p>
-                                                        </div>   
+                                                        
+                                                        <div className="bg-white p-4 rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-center gap-3">
 
-                                                        <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="relative size-[48px] bg-unimar rounded-full">
-                                                                <Image
-                                                                    className=" absolute inset-0 object-contain scale-70"
-                                                                    src={'/categorias.png'}
-                                                                    alt="lol"
-                                                                    fill
-                                                                />
-                                                            </div>
-                                                            <div className="text-start ml-3">
-                                                                <h3 className="text-[1.1rem] font-bold ">Categoria Seleccionada</h3>
-                                                            </div>
-                                                        </div>
-                                                            <p className="text-gray-700 ml-1">Categoria Masculina</p>
+                                                                <div className="flex  gap-1.5">
+                                                                    <div className="relative size-[48px] bg-unimar rounded-full">
+                                                                        <Image
+                                                                            className=" absolute inset-0 object-contain"
+                                                                            src={'/normas.png'}
+                                                                            alt="lol"
+                                                                            fill
+                                                                        />
+                                                                    </div>
+                                                                    <div >
+                                                                        <h3 className="text-[1.1rem] font-bold ">Reglamento de la Disciplina</h3>
+                                                                        <p>consulte las reglas antes de inscribirse.</p>
+                                                                    </div>
+                                                                </div>
+                                                                <Button className="cursor-pointer bg-unimar/20 px-4 py-2 rounded-xl flex gap-1.5 items-center font-bold text-unimar">
+                                                                    <Image
+                                                                        className="size-8"
+                                                                        src={'/R-02.png'}
+                                                                        alt="descargar"
+                                                                        width={500}
+                                                                        height={500}
+                                                                    />
+                                                                    <p>Descargar</p>
+                                                                </Button>
+
                                                         </div> 
-
-                                                        <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="relative size-[48px] bg-unimar rounded-full">
-                                                                <Image
-                                                                    className=" absolute inset-0 object-contain scale-50"
-                                                                    src={'/marcador-de-posicion.png'}
-                                                                    alt="lol"
-                                                                    fill
-                                                                />
-                                                            </div>
-                                                            <div className="text-start ml-3">
-                                                                <h3 className="text-[1.1rem] font-bold ">Ubicación</h3>
-                                                            </div>
-                                                        </div>
-                                                            <p className="text-gray-700 ml-1">Cancha Cubierta "nombre de la cancha"</p>
-                                                        </div>
-
-                                                        <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="relative size-[48px] bg-unimar rounded-full">
-                                                                <Image
-                                                                    className=" absolute inset-0 object-contain"
-                                                                    src={'/normas.png'}
-                                                                    alt="lol"
-                                                                    fill
-                                                                />
-                                                            </div>
-                                                            <div className="text-start ml-3">
-                                                                <h3 className="text-[1.1rem] font-bold ">Reglas Principales</h3>
-                                                            </div>
-                                                        </div>
-                                                            <p className="text-gray-700 m-1">Partidos de 2 Tiempos de 20 minutos</p>
-                                                            <p className="text-gray-700 m-1">Máximo 8 jugadores en cancha por equipo</p>
-                                                            <p className="text-gray-700 m-1">Sistema de eliminación directa a partir de cuartos de final</p>
-                                                            <p className="text-gray-700 m-1">Faltas acumulativas según reglamento FIFA Futsal</p>
-                                                        </div> 
-
-                                                        <div className="space-y-2">
-                                                        <div className="flex items-center">
-                                                            <div className="relative size-[48px] bg-unimar rounded-full">
-                                                                <Image
-                                                                    className=" absolute inset-0 object-contain scale-80"
-                                                                    src={'/primer-lugar.png'}
-                                                                    alt="lol"
-                                                                    fill
-                                                                />
-                                                            </div>
-                                                            <div className="text-start ml-3">
-                                                                <h3 className="text-[1.1rem] font-bold ">Premios</h3>
-                                                            </div>
-                                                        </div>
-                                                            <p className="text-gray-700 m-1">1er Lugar: Trofeo + 50% de descuento en el proximo Trimestre</p>
-                                                            <p className="text-gray-700 m-1">2do Lugar: Reconocimiento 25% de descuento en el proximo Trimestre</p>
-                                                            <p className="text-gray-700 m-1">3er Lugar: Reconocimiento</p>
-                                                        </div>
                                                 </div>
                                         
-
-
                                     </div>
                                     
                                 </section>
@@ -530,11 +482,11 @@ export default function modal_Inscription({onCloseExternal}:ModalProps) {
                                                 <Input className="input bg-white" type="text"/>
                                             </InputGroup>
                                         </div>
-                                            <Button className="flex items-center text-white place-content-center hover:bg-unimar/92 gap-3 cursor-pointer bg-unimar p-2 rounded-2xl">
+                                            <Button className="flex items-center text-white place-content-center hover:bg-unimar/92 gap-1.5 cursor-pointer bg-unimar p-2 rounded-2xl">
                                                 <div className="relative size-[32px]">
                                                     <Image
-                                                        className=" absolute inset-0 object-contain scale-65"
-                                                        src={'/anadir.png'}
+                                                        className=" absolute inset-0 object-contain scale-80"
+                                                        src={'/ubicacion.png'}
                                                         alt="lol"
                                                         fill
                                                     />
