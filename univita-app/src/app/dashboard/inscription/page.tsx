@@ -12,7 +12,7 @@ import {
  } from '@/types/ui_components'
 
 //tabla inscripciones
-interface ApiTournamentEntry {
+interface ApiTeam {
   id: number;
   nombre: string;
   disciplina: string;
@@ -30,7 +30,7 @@ interface ApiUser {
 }
 
 // Para la tabla de equipos (api/teams)
-interface ApiTeam {
+interface ApiUsers {
   id: number;
   nombre: string;
   logo: string;
@@ -45,6 +45,7 @@ interface ApiTeam {
 
 interface ApiSub{
     id_suscripcion:number;
+    email:string;
     suscriptor:ApiUser;
     fecha_suscripcion:string;
     hace_tiempo:string;
@@ -136,8 +137,8 @@ export default function page() {
         ];
 
 
-        const [entries, setEntries] = useState<ApiTournamentEntry[]>([]);
         const [teams, setTeams] = useState<ApiTeam[]>([]);
+        const [userTeam, setUserTeam] = useState<ApiUsers[]>([]);
         const [sub, setSub] = useState<ApiSub[]>([]);
 
         const [loading, setLoading] = useState(true);
@@ -152,25 +153,25 @@ export default function page() {
                     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
                     // Ejecutamos ambas peticiones en paralelo
-                    const [entriesRes, teamsRes, subRes] = await Promise.all([
-                        fetch(`${API_URL}/inscripciones`),
+                    const [   teamsRes, userTeamsRes, subRes] = await Promise.all([
+                        fetch(`${API_URL}/teams-inscription`),
                         fetch(`${API_URL}/teams`),
-                        fetch(`${API_URL}/subscription`),
+                        fetch(`${API_URL}/subscribed-users`),
                     ]);
 
                     // Comprobamos si ambas respuestas son exitosas
-                    if (!entriesRes.ok) throw new Error(`Error en inscripciones: ${entriesRes.statusText}`);
-                    if (!teamsRes.ok) throw new Error(`Error en equipos: ${teamsRes.statusText}`);
+                    if (!userTeamsRes.ok) throw new Error(`Error en equipos: ${userTeamsRes.statusText}`);
+                    if (!teamsRes.ok) throw new Error(`Error en inscripciones: ${teamsRes.statusText}`);
                     if (!subRes.ok) throw new Error(`Error en suscripciones: ${subRes.statusText}`);
 
-                    const entriesData = await entriesRes.json();
+                    const userTeamData = await userTeamsRes.json();
                     const teamsData = await teamsRes.json();
                     const subsData = await subRes.json();
 
                     // 3. Guardamos los datos
                     // Nota: Laravel API Resources envuelven la colección en una clave 'data'
-                    setEntries(entriesData.data); 
-                    setTeams(teamsData.data);
+                    setTeams(teamsData.data); 
+                    setUserTeam(userTeamData.data);
                     setSub(subsData.data);
 
                 } catch (e: any) {
@@ -187,19 +188,6 @@ export default function page() {
         
         if (loading) return <p>Cargando datos...</p>;
         if (error) return <p>Error al cargar: {error}</p>;
-
-        
-        const tablaequipos = teams.map(team => ({
-            id: team.id,
-            nombre: team.nombre,
-            integrantes_data: team.integrantes_data.map((p, idx) => ({
-                dorsal: idx + 1,
-                name: p.name, 
-                email: p.email,
-                cedula: p.cedula,
-                telefono: p.telefono,
-            })),
-        }));
 
   return (
     <div className="Case2 overflow-y-auto text-black">
@@ -299,7 +287,7 @@ export default function page() {
                         </TableHead>
 
                         <TableBody className="bg-white divide-y divide-gray-200">
-                            {entries.map((entry)=>(
+                            {teams.map((entry)=>(
                                 <TableRow key={entry.id} className="hover:bg-gray-100 text-center">
                                     <TableCell className="font-bold">{entry.nombre}</TableCell>
                                     <TableCell>{entry.disciplina}</TableCell>
@@ -374,7 +362,7 @@ export default function page() {
                         </TableHead>
 
                         <TableBody className="bg-white divide-y divide-gray-200">
-                            {tablaequipos.map((data)=>(
+                            {userTeam.map((data)=>(
                                 <React.Fragment key={data.id}>
                                     {data.integrantes_data?.map((person:any)=>(
                                         <TableRow key={person.id || person.email} className="hover:bg-gray-100 text-center">

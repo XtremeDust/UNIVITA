@@ -68,7 +68,18 @@ import {
   ]
 
   
-  
+  interface APIcoment{
+     id: number;
+    titulo: string;
+    contenido: string;
+    estado: string;
+    autor: {
+        id: number;
+        email: string;
+    };
+    fecha_creacion:string;
+  }
+
   export default function page() {
     const [isEstate, setSelectE] = useState<string|null>('Todos'); 
     const [isOpenE, setIsOpenE] = useState(false);
@@ -97,17 +108,36 @@ import {
     ];
 
 
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<APIcoment[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string|null>(null);
 
     useEffect(() => {
-    (async () => {
+(async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/posts");
+        setLoading(true);
+        setError(null); 
+        const API_URL = process.env.NEXT_PUBLIC_API_URL 
+
+        const res = await fetch(`${API_URL}/posts`);
+
+        if (!res.ok) { 
+          throw new Error(`Error HTTP: ${res.statusText}`);
+        }
+
         const json = await res.json();
-        setPosts(json);
-      } catch (e) {
-        console.error(e);
+
+        if (json && json.data) { 
+             setPosts(json.data);
+        } else {
+  
+             console.error("Formato de respuesta inesperado:", json);
+             setPosts([]);
+        }
+
+      } catch (e: any) { 
+        console.error("Error al cargar posts:", e);
+        setError(e.message || "Error desconocido"); 
       } finally {
         setLoading(false);
       }
@@ -116,14 +146,6 @@ import {
 
   if (loading) return <p>Cargando posts...</p>;
 
-  // adaptar a tu "coment" array que espera campos: email, contenido, fecha, visibilidad
-  const coment = posts.map(p => ({
-    id: p.id,
-    email: p.author?.email ?? "Anonimo",
-    contenido: p.body,
-    fecha: new Date(p.created_at).toLocaleString(),
-    visibilidad: p.status === 'publico' ? 'Publico' : 'Privado'
-  }));
 
 
   return (
@@ -187,14 +209,14 @@ import {
                           </TableHead>
 
                           <TableBody className="bg-white divide-y divide-gray-200">
-                              {coment.map((data)=>(
+                              {posts.map((data)=>(
                                   <TableRow key={data.id} className="hover:bg-gray-100 text-center">
-                                              <TableCell className="font-bold">{data.email}</TableCell>
-                                              <TableCell className="overflow-hidden"><p className="w-sm">{data.contenido}</p></TableCell>
-                                              <TableCell>{data.fecha}</TableCell>
+                                              <TableCell className="font-bold">{data.autor.email}</TableCell>
+                                              <TableCell className="overflow-hidden"><p>{data.contenido ? data.contenido.slice(0, 60) + '...':''}</p></TableCell>
+                                              <TableCell>{data.fecha_creacion}</TableCell>
                                               <TableCell className="place-items-center">
-                                                  <p  className={`items-center rounded-full p-2 w-40 font-semibold ${data.visibilidad==='Privado'? ' bg-gray-400/50 text-gray-800' : 'bg-blue-400/50 text-blue-800'}`}>
-                                                      {data.visibilidad}
+                                                  <p  className={`items-center rounded-full p-2 w-40 font-semibold ${data.estado==='privado'? ' bg-gray-400/50 text-gray-800' : 'bg-blue-400/50 text-blue-800'}`}>
+                                                      {data.estado ? data.estado.charAt(0).toUpperCase() + data.estado.slice(1) : ''}
                                                   </p>
                                               </TableCell>
                                               <TableCell className="space-x-2 flex justify-evenly text-white">
