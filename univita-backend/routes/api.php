@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TeamController;
 use App\Http\Controllers\Api\TournamentEntryController;
 use App\Http\Controllers\Api\EventsSubscriptionController;
+use App\Http\Controllers\Api\RegulationController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -17,3 +18,4 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::get('/teams', [TeamController::class, 'index']);
 Route::get('/inscripciones', [TournamentEntryController::class, 'index']);
 Route::get('/subscription', [EventsSubscriptionController::class, 'index']);
+Route::get('/regulations', [RegulationController::class, 'index']);
