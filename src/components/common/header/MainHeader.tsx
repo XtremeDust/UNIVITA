@@ -1,0 +1,133 @@
+'use client'
+import Redes from "@/components/common/footer/socialMedia";
+import {pago} from "@/types/headerSection";
+import Accordeon from "@/components/common/header/accordionMH"
+import React, {useState, useEffect} from "react";
+import Image from "next/image";
+import {ActiveLink} from "@/components/ui/Router";
+import MenuDropdown from "@/components/common/header/menuDropdown";
+
+function Header(){
+
+  const [isOpenMenu, setOpenMenu] = useState(false);
+  
+  const [data, setData] = useState<any>(null);
+  let date: Date=new Date();
+
+  const API_DOLAR = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/v1/dolar-rate`;
+
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch(API_DOLAR)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    setError(data.error);
+                }
+                setData(data);
+            })
+            .catch(e => {
+                console.error("Fallo al contactar Laravel API:", e);
+                setError("Tasa de cambio no disponible (Error de conexión con el servidor).");
+                setData(null);
+            });
+  }, []);
+
+  let rateContent;
+
+    if (error) {
+        rateContent = (
+            <span className="flex flex-none gap-1 ">
+                <span className="font-bold"> Error: </span> {error}
+            </span>
+        );
+    } else if (!data) {
+        rateContent = (
+            <span className="flex flex-none gap-1 text-blue-700 animate-pulse">
+                Cargando tasa del día...
+            </span>
+        );
+    } else {
+        const officialRate = data.oficial?.promedio;
+        
+        rateContent = (
+            <p className=" flex flex-none gap-1">
+                El valor del dólar, según el BCV, para el día de hoy {`${date.getDate()}/${date.getUTCMonth()+1}/${date.getUTCFullYear()}`}
+                <span> es </span>
+                <strong> {officialRate?.toFixed(2) ?? 'N/A'} </strong> Bs
+            </p>
+        );
+    }
+  
+
+    return(
+    
+      <header className=" flex flex-col w-full  items-center text-center justify-center gap-1 bg-blue-50">
+          
+          <div className="nav grid w-full overflow-hidden bg-blue-200 pb-1 text-blue-800">
+            <section className="mov left flex items-center gap-2">
+            <Image
+                  src={'/informacion.png'}
+                      width= {18}
+                      height= {18}
+                  alt={'info'}
+            />
+              {rateContent}
+            </section>
+          </div>
+
+          <div className="flex flex-wap p-1 bg-blue-50 w-full justify-between lg:justify-items-stretch">
+            
+            <div className="flex flex-wap w-full h-8 items-center justify-start lg:justify-center">      
+              <Redes/>
+              {pago.map((icons) =>(
+                <a key={icons.id} href={icons.Url}>
+                  <img src={icons.icon} alt={icons.red} className={icons.size}/>
+                </a>
+              ))}              
+            </div>
+
+            <div className="grid col-4">
+              <a href="" className="w-28 justify-center">
+                <img src="/online-payments-vertical.png" alt="login" className="h-full" />
+              </a>
+            </div>
+          </div>
+
+          <div className="nav grid bg-blue-50 px-2 grid-flow-col w-full">
+            <nav className="flex md:flex-col xl:flex-row ">
+
+              <div className="grid place-items-center xl:justify-items-normal ">
+                <ActiveLink href="https://portalunimar.unimar.edu.ve/home">
+                <img src="/logounimar-25-aniversario.png" alt="logo unimar" className="w-2/3 md:w-xl  xl:ml-12"/>
+                </ActiveLink>
+              </div>
+
+              <div className="md:grid place-content-center xl:justify-end xl:mr-14 h-10 xl:h-auto w-full hidden">
+                  <MenuDropdown/>             
+              </div>
+              
+            </nav>
+
+            <button className="md:hidden cursor-pointer justify-start" onClick={()=>setOpenMenu(!isOpenMenu)}>
+              <img src="/bars-solid-full.svg" alt="menu" className=" size-8"/>
+            </button>
+
+          </div>
+                        
+          <div className={`w-full transition-all ease-in-out overflow-hidden md:hidden text-black ${isOpenMenu ? ' max-h-screen opacity-100 ' :' max-h-0 opacity-0  pointer-events-none'}`}>
+            <Accordeon/>
+          </div>
+
+
+      </header>
+    );
+}
+
+export default Header;
